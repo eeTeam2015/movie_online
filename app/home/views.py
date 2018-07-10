@@ -24,22 +24,37 @@ def logout():
 def regist():
     return render_template("home/regist.html")
 
+# 用户
 @home.route("/user/")
 def user():
     return render_template("home/user.html")
 
+# 密码
 @home.route("/pwd/")
 def pwd():
     return render_template("home/pwd.html")
 
+# 评论
 @home.route("/comments/")
 def comments():
     return render_template("home/comments.html")
 
+# 会员登录日志
 @home.route("/loginlog/")
 def loginlog():
     return render_template("home/loginlog.html")
 
+# 电影收藏
 @home.route("/moviecol/")
 def moviecol():
-    return render_template("home/moviecol.html")
+    return render_template("home/animation.html")
+
+# 上映预告
+@home.route("/animation/")
+def animation():
+    return render_template("home/animation.html")
+
+# 电影搜索
+@home.route("/search/")
+def search():
+    return render_template("home/search.html")
