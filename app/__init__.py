@@ -1,6 +1,8 @@
 #coding:utf8
 __author__ = 'xojisi'
 
+import os
+
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 import warnings
@@ -11,6 +13,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@127.0.0.1:3306/movie_online?charset=utf8"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SECRET_KEY"] = "d3a64eaea17946cd8c7f0d363390c6cb"
+app.config["UP_DIR"] = os.path.join(os.path.abspath(os.path.dirname(__file__)), "static/uploads/")
 app.debug = True
 db = SQLAlchemy(app)
 
