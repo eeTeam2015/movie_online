@@ -101,7 +101,7 @@ def pwd():
         admin.pwd = generate_password_hash(data["new_pwd"])
         db.session.add(admin)
         db.session.commit()
-        flash("修改密码成功", "ok")
+        flash("修改密码成功，请重新登录！", "ok")
         redirect(url_for("admin.logout"))
     return render_template("admin/pwd.html", form=form)
 
