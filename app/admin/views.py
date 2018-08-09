@@ -48,8 +48,6 @@ def admin_auth(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
-
 # 修改文件名称
 def change_filename(filename):
     fileinfo = os.path.splitext(filename)
@@ -366,7 +364,7 @@ def user_list(page=None):
     return render_template("admin/user_list.html", page_data=page_data)
 
 # 查看会员
-@admin.route("/user/view/<int:id>/", method=["GET"])
+@admin.route("/user/view/<int:id>/", methods=["GET"])
 @admin_login_req
 @admin_auth
 def user_view(id=None):
@@ -374,7 +372,7 @@ def user_view(id=None):
     return render_template("admin/user_view.html", user=user)
 
 # 删除会员
-@admin.route("/user/del/<int:id>/", method=["GET"])
+@admin.route("/user/del/<int:id>/", methods=["GET"])
 @admin_login_req
 @admin_auth
 def user_del(id=None):
@@ -385,7 +383,7 @@ def user_del(id=None):
     return redirect(url_for("admin.user_list", page=1))
 
 # 删除评论
-@admin.route("/comment/del/<int:id>/", method=["GET"])
+@admin.route("/comment/del/<int:id>/", methods=["GET"])
 @admin_login_req
 @admin_auth
 def comment_del(id=None):
@@ -426,7 +424,7 @@ def moviecol_list(page=None):
     return render_template("admin/moviecol_list.html", page_data=page_data)
 
 # 删除收藏
-@admin.route("/moviecol/del/<int:id>/", method=["GET"])
+@admin.route("/moviecol/del/<int:id>/", methods=["GET"])
 @admin_login_req
 @admin_auth
 def moviecol_del(id=None):
