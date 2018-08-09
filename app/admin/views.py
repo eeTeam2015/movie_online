@@ -400,7 +400,7 @@ def comment_del(id=None):
 def comment_list(page=None):
     if page is None:
         page = 1
-    page_data = User.query.join(Movie).join(User).filter(
+    page_data = Comment.query.join(Movie).join(User).filter(
         Movie.id == Comment.movie_id,
         User.id == Comment.user_id
     ).order_by(

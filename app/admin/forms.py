@@ -314,3 +314,5 @@ class AdminForm(FlaskForm):
             "class": "btn btn-primary",
         }
     )
+
+
