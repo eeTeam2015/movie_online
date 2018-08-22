@@ -41,14 +41,14 @@ class LoginForm(FlaskForm):
     )
 
     def validate_account(self, field):
-        account = field.date
+        account = field.data
         admin = Admin.query.filter_by(name=account).count()
         if admin == 0:
             raise ValidationError("帐号不存在")
 
 class TagForm(FlaskForm):
     name = StringField(
-        laber = "名称",
+        label = "名称",
         validators = [DataRequired("请输入标签！")],
         description = "标签",
         render_kw={
@@ -66,7 +66,7 @@ class TagForm(FlaskForm):
 
 class MovieForm(FlaskForm):
     title = StringField(
-        laber="片名",
+        label="片名",
         validators=[DataRequired("请输入片名！")],
         description="片名",
         render_kw={
@@ -76,12 +76,12 @@ class MovieForm(FlaskForm):
         }
     )
     url = FileField(
-        laber="文件",
-        validators=[DataRequired("请上传文件！")],
+        label="文件",
+        # validators=[DataRequired("请上传文件！")],
         description="文件",
     )
     info = TextAreaField(
-        laber="简介",
+        label="简介",
         validators=[DataRequired("请输入简介！")],
         description="简介",
         render_kw={
@@ -90,12 +90,12 @@ class MovieForm(FlaskForm):
         }
     )
     logo = FileField(
-        laber="封面",
-        validators=[DataRequired("请上传封面！")],
+        label="封面",
+        # validators=[DataRequired("请上传封面！")],
         description="封面",
     )
     star = SelectField(
-        laber="星级",
+        label="星级",
         validators=[DataRequired("请选择星级！")],
         coerce = int,
         choices = [(1,"1星"),(2,"2星"),(3,"3星"),(4,"4星"),(5,"5星")],
@@ -105,8 +105,8 @@ class MovieForm(FlaskForm):
         }
     )
     tag_id = SelectField(
-        laber="标签",
-        validators=[DataRequired("请选择星级！")],
+        label="标签",
+        validators=[DataRequired("请选择标签！")],
         coerce=int,
         choices=[(v.id, v.name) for v in tags],
         description="标签",
@@ -115,7 +115,7 @@ class MovieForm(FlaskForm):
         }
     )
     area = StringField(
-        laber="地区",
+        label="地区",
         validators=[DataRequired("请输入地区！")],
         description="地区",
         render_kw={
@@ -124,7 +124,7 @@ class MovieForm(FlaskForm):
         }
     )
     length = StringField(
-        laber="片长",
+        label="片长",
         validators=[DataRequired("请输入片长！")],
         description="片长",
         render_kw={
@@ -133,7 +133,7 @@ class MovieForm(FlaskForm):
         }
     )
     release_time = StringField(
-        laber="上映时间",
+        label="上映时间",
         validators=[DataRequired("请选择上映时间！")],
         description="上映时间",
         render_kw={
@@ -151,7 +151,7 @@ class MovieForm(FlaskForm):
 
 class PreviewForm(FlaskForm):
     title = StringField(
-        laber="预告标题",
+        label="预告标题",
         validators=[DataRequired("请输入预告标题！")],
         description="预告标题",
         render_kw={
@@ -161,7 +161,7 @@ class PreviewForm(FlaskForm):
         }
     )
     logo = FileField(
-        laber="预告封面",
+        label="预告封面",
         validators=[DataRequired("请上传预告封面！")],
         description="预告封面",
     )
@@ -212,7 +212,7 @@ class PwdForm(FlaskForm):
 
 class AuthForm(FlaskForm):
     name = StringField(
-        laber="权限名称",
+        label="权限名称",
         validators=[DataRequired("请输入权限名称！")],
         description="权限名称",
         render_kw={
@@ -222,7 +222,7 @@ class AuthForm(FlaskForm):
     )
 
     url = StringField(
-        laber="权限地址",
+        label="权限地址",
         validators=[DataRequired("请输入权限地址！")],
         description="权限地址",
         render_kw={
@@ -241,7 +241,7 @@ class AuthForm(FlaskForm):
 
 class RoleForm(FlaskForm):
     name = StringField(
-        laber="角色名称",
+        label="角色名称",
         validators=[DataRequired("请输入角色名称！")],
         description="角色名称",
         render_kw={

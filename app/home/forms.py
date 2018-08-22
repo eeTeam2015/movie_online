@@ -155,7 +155,7 @@ class UserdetailForm(FlaskForm):
         description="头像"
     )
     info = TextAreaField(
-        laber="简介",
+        label="简介",
         validators=[DataRequired("请输入简介！")],
         description="简介",
         render_kw={

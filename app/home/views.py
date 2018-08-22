@@ -28,6 +28,7 @@ def change_filename(filename):
 
 # 首页
 @home.route("/<int:page>/", methods=["GET"])
+@home.route("/", methods=["GET"])
 def index(page=None):
     tags = Tag.query.all()
     page_data = Movie.query
@@ -66,7 +67,7 @@ def index(page=None):
                 Movie.playnum.asc()
             )
 
-    #
+    # 评论量
     cm = int(request.args.get("cm",0))
     if cm != 0:
         if cm == 1:
@@ -80,7 +81,7 @@ def index(page=None):
 
     if page is None:
         page = 1
-    page_data = page_data.pagniate(page=page, per_page=10)
+    page_data = page_data.paginate(page=page, per_page=10)
     p = dict(
         tid=tid,
         star=star,
