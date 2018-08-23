@@ -1,12 +1,12 @@
 #coding:utf8
 __author__ = 'xojisi'
 from . import home
-from flask import render_template, redirect, url_for, flash, session, request
+from flask import render_template, redirect, url_for, flash, session, request, Response
 from app.home.forms import RegistForm, LoginForm, UserdetailForm, PwdForm, CommentForm
 from app.models import User, Userlog, Preview, Tag, Movie, Comment, Moviecol
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
-from app import db, app
+from app import db, app, rd
 import uuid, os
 from functools import wraps
 import datetime
@@ -15,7 +15,7 @@ import datetime
 def user_login_req(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if "" not in session:
+        if "user" not in session:
             return redirect(url_for("home.login"), next=request.url)
         return f(*args, **kwargs)
     return decorated_function
@@ -99,8 +99,11 @@ def login():
     if form.validate_on_submit():
         data = form.data
         user = User.query.filter_by(name=data["name"]).first()
+        if user is None:
+            flash("用户或密码错误，请重新输入！","err")
+            return redirect(url_for("home.login"))
         if not user.check_pwd(data["pwd"]):
-            flash("密码错误！", "err")
+            flash("用户或密码错误，请重新输入", "err")
             return redirect(url_for("home.login"))
         session["user"] = user.name
         session["user_id"] = user.id
@@ -133,9 +136,10 @@ def regist():
             pwd = generate_password_hash(data["pwd"]),
             uuid = uuid.uuid4().hex
         )
-        db.session.add(User)
+        db.session.add(user)
         db.session.commit()
         flash("注册成功！","ok")
+        return redirect(url_for('home.login'))
     return render_template("home/regist.html", form=form)
 
 # 会员修改资料
@@ -209,10 +213,10 @@ def comments(page=None):
         page = 1
     page_data = Comment.query.join(Movie).join(User).filter(
         Movie.id == Comment.movie_id,
-        User.id == session["user_id"]
+        User.id == int(session["user_id"])
     ).order_by(
         Comment.addtime.desc()
-    ).pagniate(page=page, per_page=10)
+    ).paginate(page=page, per_page=10)
 
     return render_template("home/comments.html", page_data=page_data)
 
@@ -324,3 +328,45 @@ def play(id=None, page=None):
     db.session.commit()
     return render_template("home/play.html", movie=movie, form=form, page_data=page_data)
 
+@home.route("/tm/", methods=["GET", "POST"])
+def tm():
+    import json
+    if request.method == "GET":
+        #获取弹幕消息队列
+        id = request.args.get('id')
+        key = "movie" + str(id)
+        if rd.llen(key):
+            msgs = rd.lrange(key, 0, 2999)
+            res = {
+                "code": 1,
+                "danmaku": [json.loads(v) for v in msgs]
+            }
+        else:
+            res = {
+                "code": 1,
+                "danmaku": []
+            }
+        resp = json.dumps(res)
+    if request.method == "POST":
+        #添加弹幕
+        data = json.loads(request.get_data())
+        msg = {
+            "__v": 0,
+            "author": data["author"],
+            "time": data["time"],
+            "text": data["text"],
+            "color": data["color"],
+            "type": data['type'],
+            "ip": request.remote_addr,
+            "_id": datetime.datetime.now().strftime("%Y%m%d%H%M%S") + uuid.uuid4().hex,
+            "player": [
+                data["player"]
+            ]
+        }
+        res = {
+            "code": 1,
+            "data": msg
+        }
+        resp = json.dumps(res)
+        rd.lpush("movie" + str(data["player"]), json.dumps(msg))
+    return Response(resp, mimetype='application/json')
