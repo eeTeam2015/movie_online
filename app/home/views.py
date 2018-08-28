@@ -289,6 +289,7 @@ def search(page=None):
     ).order_by(
         Movie.addtime.desc()
     ).paginate(page=page, per_page=10)
+    page_data.key = key
     return render_template("home/search.html", key=key, page_data=page_data, movie_count=movie_count)
 
 # 电影详情
@@ -327,6 +328,44 @@ def play(id=None, page=None):
     db.session.add(movie)
     db.session.commit()
     return render_template("home/play.html", movie=movie, form=form, page_data=page_data)
+
+# 播放器
+@home.route("/video/<int:id>/<int:page>/", methods=["GET","POST"])
+def video(id=None, page=None):
+    movie = Movie.query.join(Tag).filter(
+        Tag.id == Movie.tag_id,
+        Movie.id == int(id)
+    ).first_or_404()
+
+    if page is None:
+        page = 1
+    page_data = Comment.query.join(Movie).join(User).filter(
+        Movie.id == movie.id,
+        User.id == Comment.user_id
+    ).order_by(
+        Comment.addtime.desc()
+    ).paginate(page=page, per_page=10)
+
+    movie.playnum = movie.playnum + 1
+    form = CommentForm()
+    if "user" in session and form.validate_on_submit():
+        data = form.data
+        comment = Comment(
+            comment = data["content"],
+            movie_id = movie.id,
+            user_id = session["user_id"]
+        )
+        db.session.add(comment)
+        db.session.commit()
+        movie.commentnum = movie.commentnum + 1
+        db.session.add(movie)
+        db.session.commit()
+        flash("评论成功！","ok")
+        return redirect(url_for("home.video"), id=movie.id, page=1)
+    db.session.add(movie)
+    db.session.commit()
+    return render_template("home/video.html", movie=movie, form=form, page_data=page_data)
+
 
 @home.route("/tm/", methods=["GET", "POST"])
 def tm():
