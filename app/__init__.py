@@ -1,13 +1,11 @@
 #coding:utf8
-__author__ = 'xojisi'
-
 import os
+import warnings
+warnings.filterwarnings('ignore')
 
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_redis import FlaskRedis
-import warnings
-warnings.filterwarnings('ignore')
 import pymysql
 
 app = Flask(__name__)

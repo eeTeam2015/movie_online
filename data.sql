@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-08-22 17:26:11
+Date: 2018-08-29 13:41:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('3', 'admin', 'pbkdf2:sha256:50000$zJVFpNtX$71c1435c064289eba5abe467fb18869f4217d384e2d51092b9c4ff73f45895b2', '1', '1', '2018-06-08 15:43:00');
+INSERT INTO `admin` VALUES ('3', 'admin', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1', '1', '2018-06-08 15:43:00');
 
 -- ----------------------------
 -- Table structure for adminlog
@@ -51,7 +51,7 @@ CREATE TABLE `adminlog` (
   KEY `admin_id` (`admin_id`),
   KEY `ix_adminlog_addtime` (`addtime`),
   CONSTRAINT `adminlog_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of adminlog
@@ -60,6 +60,9 @@ INSERT INTO `adminlog` VALUES ('1', '3', '127.0.0.1', '2018-08-10 13:26:33');
 INSERT INTO `adminlog` VALUES ('2', '3', '127.0.0.1', '2018-08-10 13:37:38');
 INSERT INTO `adminlog` VALUES ('3', '3', '127.0.0.1', '2018-08-10 13:48:00');
 INSERT INTO `adminlog` VALUES ('4', '3', '127.0.0.1', '2018-08-22 15:17:34');
+INSERT INTO `adminlog` VALUES ('5', '3', '127.0.0.1', '2018-08-23 10:19:35');
+INSERT INTO `adminlog` VALUES ('6', '3', '127.0.0.1', '2018-08-29 13:37:15');
+INSERT INTO `adminlog` VALUES ('7', '3', '127.0.0.1', '2018-08-29 13:37:51');
 
 -- ----------------------------
 -- Table structure for auth
@@ -164,9 +167,9 @@ CREATE TABLE `movie` (
 -- ----------------------------
 -- Records of movie
 -- ----------------------------
-INSERT INTO `movie` VALUES ('1', '变形金刚', '201808221544449409500498704ac38b9da36dedf7039d.mp4', '变形金刚变形金刚变形金刚变形金刚变形金刚变形金刚1', '201808221544447d659001f638444fbceec490d5b6349f.jpg', '1', '0', '0', '2', '美国', '2018-08-17', '101', '2018-08-10 14:13:14');
-INSERT INTO `movie` VALUES ('2', '头号玩家', '201808221550431ea4045526b647d48e0175a737e387af.mp4', '头号玩家头号玩家头号玩家头号玩家头号玩家头号玩家1', '201808221702592856d1e3e11745369f856d52bc6390b1.jpg', '3', '1', '0', '1', '中国', '2018-08-16', '134', '2018-08-22 15:50:44');
-INSERT INTO `movie` VALUES ('3', '巨齿鲨', '20180822171203f575488a35a94fce8af19ef986321bbb.mp4', '巨齿鲨巨齿鲨巨齿鲨巨齿鲨巨齿鲨', '201808221712032264dc64e5fb4c6c979e67cfcc14bbe6.jpg', '2', '0', '0', '4', '香港', '2018-08-07', '117', '2018-08-22 17:12:04');
+INSERT INTO `movie` VALUES ('1', '变形金刚', '201808221544449409500498704ac38b9da36dedf7039d.mp4', '变形金刚变形金刚变形金刚变形金刚变形金刚变形金刚1', '201808221544447d659001f638444fbceec490d5b6349f.jpg', '1', '3', '0', '2', '美国', '2018-08-17', '101', '2018-08-10 14:13:14');
+INSERT INTO `movie` VALUES ('2', '头号玩家', '201808221550431ea4045526b647d48e0175a737e387af.mp4', '头号玩家头号玩家头号玩家头号玩家头号玩家头号玩家1', '201808221702592856d1e3e11745369f856d52bc6390b1.jpg', '3', '25', '0', '1', '中国', '2018-08-16', '134', '2018-08-22 15:50:44');
+INSERT INTO `movie` VALUES ('3', '巨齿鲨', '20180822171203f575488a35a94fce8af19ef986321bbb.mp4', '巨齿鲨巨齿鲨巨齿鲨巨齿鲨巨齿鲨', '201808221712032264dc64e5fb4c6c979e67cfcc14bbe6.jpg', '2', '1', '0', '4', '香港', '2018-08-07', '117', '2018-08-22 17:12:04');
 
 -- ----------------------------
 -- Table structure for moviecol
@@ -227,11 +230,16 @@ CREATE TABLE `preview` (
   UNIQUE KEY `title` (`title`),
   UNIQUE KEY `logo` (`logo`),
   KEY `ix_preview_addtime` (`addtime`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of preview
 -- ----------------------------
+INSERT INTO `preview` VALUES ('1', '变形金刚', '20180823103032806071e27302459d9e39e768b70e6060.jpg', '2018-08-23 10:27:11');
+INSERT INTO `preview` VALUES ('2', '头号玩家', '20180823102719087f395d7e0a4bdfb1c4e9650e3e0b86.jpg', '2018-08-23 10:27:19');
+INSERT INTO `preview` VALUES ('3', '巨齿鲨', '201808231027243230fe0b6a77405498bceff5eba68a7a.jpg', '2018-08-23 10:27:25');
+INSERT INTO `preview` VALUES ('4', '复仇者联盟', '201808231047123ec69a17074c4721b405aacfd2eb3f3d.jpg', '2018-08-23 10:47:13');
+INSERT INTO `preview` VALUES ('5', '蚁人', '201808231047184c8a57311233412fb2514c640b8d4284.jpg', '2018-08-23 10:47:18');
 
 -- ----------------------------
 -- Table structure for role
@@ -297,23 +305,27 @@ CREATE TABLE `user` (
   UNIQUE KEY `face` (`face`),
   UNIQUE KEY `uuid` (`uuid`),
   KEY `ix_user_addtime` (`addtime`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '鼠', '1231', '1231@123.com', '13888888881', '鼠', '1f401.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc0');
-INSERT INTO `user` VALUES ('2', '牛', '1232', '1232@123.com', '13888888882', '牛', '1f402.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc1');
-INSERT INTO `user` VALUES ('3', '虎', '1233', '1233@123.com', '13888888883', '虎虎', '1f405.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc2');
-INSERT INTO `user` VALUES ('4', '兔', '1234', '1234@123.com', '13888888884', '兔', '1f407.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc3');
-INSERT INTO `user` VALUES ('5', '龙', '1235', '1235@123.com', '13888888885', '龙', '1f409.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc4');
-INSERT INTO `user` VALUES ('6', '蛇', '1236', '1236@123.com', '13888888886', '蛇', '1f40d.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc5');
-INSERT INTO `user` VALUES ('7', '马', '1237', '1237@123.com', '13888888887', '马', '1f434.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc6');
-INSERT INTO `user` VALUES ('8', '羊', '1238', '1238@123.com', '13888888888', '羊', '1f411.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc7');
-INSERT INTO `user` VALUES ('9', '猴', '1239', '1239@123.com', '13888888889', '猴', '1f412.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc8');
-INSERT INTO `user` VALUES ('10', '鸡', '1240', '1240@123.com', '13888888891', '鸡', '1f413.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc9');
-INSERT INTO `user` VALUES ('11', '狗', '1241', '1241@123.com', '13888888892', '狗', '1f415.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fd0');
-INSERT INTO `user` VALUES ('12', '猪', '1242', '1242@123.com', '13888888893', '猪', '1f416.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fd1');
+INSERT INTO `user` VALUES ('1', '鼠', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1231@123.com', '13888888881', '鼠', '1f401.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc0');
+INSERT INTO `user` VALUES ('2', '牛', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1232@123.com', '13888888882', '牛', '1f402.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc1');
+INSERT INTO `user` VALUES ('3', '虎', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1233@123.com', '13888888883', '虎虎', '1f405.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc2');
+INSERT INTO `user` VALUES ('4', '兔', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1234@123.com', '13888888884', '兔', '1f407.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc3');
+INSERT INTO `user` VALUES ('5', '龙', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1235@123.com', '13888888885', '龙', '1f409.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc4');
+INSERT INTO `user` VALUES ('6', '蛇', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1236@123.com', '13888888886', '蛇', '1f40d.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc5');
+INSERT INTO `user` VALUES ('7', '马', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1237@123.com', '13888888887', '马', '1f434.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc6');
+INSERT INTO `user` VALUES ('8', '羊', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1238@123.com', '13888888888', '羊', '1f411.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc7');
+INSERT INTO `user` VALUES ('9', '猴', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1239@123.com', '13888888889', '猴', '1f412.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc8');
+INSERT INTO `user` VALUES ('10', '鸡', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1240@123.com', '13888888891', '鸡', '1f413.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fc9');
+INSERT INTO `user` VALUES ('11', '狗', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1241@123.com', '13888888892', '狗', '1f415.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fd0');
+INSERT INTO `user` VALUES ('12', '猪', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1242@123.com', '13888888893', '猪', '1f416.png', '2018-07-13 15:26:22', 'd32a72bdac524478b7e4f6dfc8394fd1');
+INSERT INTO `user` VALUES ('13', 'wang', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '1231231@qq232.com', '18665222222', null, null, '2018-08-23 11:02:37', '08725ab9b21f4b5095b1a1eb8892e547');
+INSERT INTO `user` VALUES ('14', 'li', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '123213@1241.com', '13976554545', null, null, '2018-08-23 11:04:25', '41ca4871a6d241e2af2a0e991ce97466');
+INSERT INTO `user` VALUES ('15', 'qing', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '123213@1s241.com', '13976554543', null, null, '2018-08-23 11:05:27', '987e3f0198e348369c8ccdce6f2feb38');
+INSERT INTO `user` VALUES ('16', 'oo22', 'pbkdf2:sha256:50000$VIhnQO60$2e3a9de48135b6ec8c2c0d75ecafe9ba80847b3e6c1c303f1b21d64ffc45f821', '12ss@sqd.com', '13945626666', null, null, '2018-08-23 11:06:00', 'b701fcc6f17f41cbbbda8b6d759c403b');
 
 -- ----------------------------
 -- Table structure for userlog
@@ -328,8 +340,12 @@ CREATE TABLE `userlog` (
   KEY `user_id` (`user_id`),
   KEY `ix_userlog_addtime` (`addtime`),
   CONSTRAINT `userlog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of userlog
 -- ----------------------------
+INSERT INTO `userlog` VALUES ('1', '16', '127.0.0.1', '2018-08-23 11:20:33');
+INSERT INTO `userlog` VALUES ('2', '16', '127.0.0.1', '2018-08-23 11:22:35');
+INSERT INTO `userlog` VALUES ('3', '16', '127.0.0.1', '2018-08-23 11:22:49');
+INSERT INTO `userlog` VALUES ('4', '16', '127.0.0.1', '2018-08-28 14:40:13');
